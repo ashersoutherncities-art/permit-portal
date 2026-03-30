@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply antialiased font-body;
+  background: #f8f9fc;
+}
+
+::selection {
+  background: rgba(250, 140, 65, 0.2);
+  color: #132452;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(19, 36, 82, 0.15);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(19, 36, 82, 0.3);
+}
+
+/* Focus states */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(250, 140, 65, 0.2);
+  border-color: #fa8c41;
+}
+
+/* Opacity 0 for animation start states */
+.animate-on-load {
+  opacity: 0;
+}
+
+/* Gradient backgrounds */
+.bg-gradient-navy {
+  background: linear-gradient(135deg, #132452 0%, #1e3a7a 50%, #1a4a6e 100%);
+}
+
+.bg-gradient-navy-dark {
+  background: linear-gradient(180deg, #0a1330 0%, #132452 100%);
+}
+
+.bg-gradient-orange {
+  background: linear-gradient(135deg, #fa8c41 0%, #f87118 100%);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Status pulse */
+@keyframes status-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(250, 140, 65, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 0 8px rgba(250, 140, 65, 0);
+  }
+}
+
+.status-pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(19, 36, 82, 0.12), 0 8px 32px rgba(19, 36, 82, 0.06);
+}
+
+/* Button glow */
+.btn-glow {
+  transition: all 0.3s ease;
+}
+.btn-glow:hover {
+  box-shadow: 0 0 20px rgba(250, 140, 65, 0.4), 0 0 40px rgba(250, 140, 65, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Loading skeleton */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #e8ecf4 25%, #f0f3f9 50%, #e8ecf4 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* Timeline connector */
+.timeline-dot {
+  position: relative;
+}
+.timeline-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 100%;
+  height: 2px;
+  background: #e8ecf4;
+}
+.timeline-dot.active::after {
+  background: linear-gradient(90deg, #fa8c41, #e8ecf4);
+}
+.timeline-dot.completed::after {
+  background: #fa8c41;
+}
+.timeline-dot:last-child::after {
+  display: none;
+}

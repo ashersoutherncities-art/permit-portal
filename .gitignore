@@ -1,0 +1,6 @@
+node_modules
+.next
+.env.local
+discord-bot
+gc-project-manager
+job-tracker
