@@ -2,8 +2,9 @@
 
 import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { Shield, LogOut, Menu, X, LayoutDashboard, Settings, BarChart3 } from 'lucide-react'
+import { LogOut, Menu, X, LayoutDashboard, Settings, BarChart3 } from 'lucide-react'
 import { useState } from 'react'
 
 export function Header() {
@@ -26,19 +27,18 @@ export function Header() {
   return (
     <header className="bg-gradient-navy sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-18">
+        <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/dashboard" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 bg-orange-400 rounded-lg flex items-center justify-center transition-transform group-hover:scale-105">
-              <Shield className="w-5 h-5 text-white" />
-            </div>
-            <div className="hidden sm:block">
-              <span className="font-heading text-white font-bold text-base tracking-tight">
-                Permit Portal
-              </span>
-              <span className="block text-white/40 text-xs font-medium -mt-0.5">
-                Southern Cities Construction
-              </span>
+          <Link href="/dashboard" className="flex items-center gap-2 group">
+            <div className="h-14 lg:h-16 flex items-center transition-transform group-hover:scale-105">
+              <Image 
+                src="/sc-logo-white.svg" 
+                alt="Southern Cities Construction" 
+                height={64}
+                width={200}
+                className="h-12 lg:h-14 w-auto"
+                priority
+              />
             </div>
           </Link>
 

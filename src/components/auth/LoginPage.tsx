@@ -3,7 +3,8 @@
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 import Link from 'next/link'
-import { Shield, ArrowRight, Mail, Lock } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight, Mail, Lock } from 'lucide-react'
 
 export function LoginPage() {
   const [email, setEmail] = useState('')
@@ -40,13 +41,15 @@ export function LoginPage() {
         
         <div className="relative z-10 flex flex-col justify-center px-16 xl:px-20">
           <div className="animate-fade-up">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-12 h-12 bg-orange-400 rounded-xl flex items-center justify-center">
-                <Shield className="w-7 h-7 text-white" />
-              </div>
-              <span className="text-white/90 font-heading text-lg font-semibold tracking-tight">
-                Southern Cities
-              </span>
+            <div className="mb-8">
+              <Image
+                src="/sc-logo-white.svg"
+                alt="Southern Cities Construction"
+                height={80}
+                width={250}
+                className="h-16 w-auto"
+                priority
+              />
             </div>
             
             <h1 className="font-heading text-4xl xl:text-5xl font-extrabold text-white leading-tight mb-6">
@@ -80,13 +83,15 @@ export function LoginPage() {
       <div className="flex-1 flex items-center justify-center px-6 sm:px-12 lg:px-16">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
-          <div className="lg:hidden flex items-center gap-3 mb-10">
-            <div className="w-10 h-10 bg-gradient-navy rounded-xl flex items-center justify-center">
-              <Shield className="w-6 h-6 text-white" />
-            </div>
-            <span className="font-heading text-navy-900 text-lg font-bold">
-              Permit Portal
-            </span>
+          <div className="lg:hidden mb-10">
+            <Image
+              src="/sc-logo-white.svg"
+              alt="Southern Cities Construction"
+              height={60}
+              width={150}
+              className="h-12 w-auto"
+              priority
+            />
           </div>
 
           <div className="opacity-0 animate-fade-up">
