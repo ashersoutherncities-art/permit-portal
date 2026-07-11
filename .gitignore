@@ -4,3 +4,13 @@ node_modules
 discord-bot
 gc-project-manager
 job-tracker
+.env*.local
+
+# Secrets — never publish (contains ANTHROPIC/NEXTAUTH/SUPABASE keys)
+.env.production
+.env
+.env.*
+
+# Build artifacts
+tsconfig.tsbuildinfo
+*.tsbuildinfo

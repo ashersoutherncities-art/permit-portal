@@ -4,9 +4,10 @@ import { useState } from 'react'
 import { PermitsTab } from './tabs/PermitsTab'
 import { PricingTab } from './tabs/PricingTab'
 import { AnalyticsTab } from './tabs/AnalyticsTab'
-import { ClipboardList, DollarSign, BarChart3 } from 'lucide-react'
+import { AdminProjectsTab } from './tabs/ProjectsTab'
+import { ClipboardList, DollarSign, BarChart3, Building2 } from 'lucide-react'
 
-type TabType = 'permits' | 'pricing' | 'analytics'
+type TabType = 'permits' | 'pricing' | 'analytics' | 'projects'
 
 export function AdminTabs() {
   const [activeTab, setActiveTab] = useState<TabType>('permits')
@@ -15,6 +16,7 @@ export function AdminTabs() {
     { id: 'permits', label: 'Manage Permits', icon: ClipboardList },
     { id: 'pricing', label: 'County Pricing', icon: DollarSign },
     { id: 'analytics', label: 'Analytics', icon: BarChart3 },
+    { id: 'projects', label: 'Projects', icon: Building2 },
   ]
 
   return (
@@ -54,6 +56,7 @@ export function AdminTabs() {
           {activeTab === 'permits' && <PermitsTab />}
           {activeTab === 'pricing' && <PricingTab />}
           {activeTab === 'analytics' && <AnalyticsTab />}
+          {activeTab === 'projects' && <AdminProjectsTab />}
         </div>
       </div>
     </div>

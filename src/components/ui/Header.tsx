@@ -13,16 +13,12 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   const isAdmin = pathname?.startsWith('/admin')
+  const isAdminUser = session?.user?.email === 'dariuswalton906@gmail.com'
 
-  const navLinks = isAdmin
-    ? [
-        { href: '/admin', label: 'Admin', icon: Settings },
-        { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-      ]
-    : [
-        { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-        { href: '/admin', label: 'Admin', icon: Settings },
-      ]
+  const navLinks = [
+    { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    ...(isAdminUser ? [{ href: '/admin', label: 'Admin', icon: Settings }] : []),
+  ]
 
   return (
     <header className="bg-gradient-navy sticky top-0 z-50">
@@ -32,7 +28,7 @@ export function Header() {
           <Link href="/dashboard" className="flex items-center gap-2 group">
             <div className="h-14 lg:h-16 flex items-center transition-transform group-hover:scale-105">
               <Image 
-                src="/sc-logo-white.svg" 
+                src="/logos/sc-logo-02.png" 
                 alt="Southern Cities Construction" 
                 height={64}
                 width={200}

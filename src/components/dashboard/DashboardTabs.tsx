@@ -4,17 +4,29 @@ import { useState } from 'react'
 import { ProcessingTab } from './tabs/ProcessingTab'
 import { ActiveTab } from './tabs/ActiveTab'
 import { DeclinedTab } from './tabs/DeclinedTab'
-import { Clock, CheckCircle, XCircle } from 'lucide-react'
+import { ArchivedTab } from './tabs/ArchivedTab'
+import { ProjectsTab } from './tabs/ProjectsTab'
+import { Clock, CheckCircle, XCircle, Archive, Building2 } from 'lucide-react'
+import type { FilterState } from '@/app/dashboard/page'
 
-type TabType = 'processing' | 'active' | 'declined'
+type TabType = 'processing' | 'active' | 'declined' | 'archived' | 'projects'
 
-export function DashboardTabs() {
+interface DashboardTabsProps {
+  refreshKey?: number
+  filters?: FilterState
+}
+
+export function DashboardTabs({ refreshKey = 0, filters }: DashboardTabsProps) {
   const [activeTab, setActiveTab] = useState<TabType>('processing')
 
-  const tabs: { id: TabType; label: string; icon: any; color: string }[] = [
-    { id: 'processing', label: 'Processing', icon: Clock, color: 'orange' },
-    { id: 'active', label: 'Active', icon: CheckCircle, color: 'emerald' },
-    { id: 'declined', label: 'Declined', icon: XCircle, color: 'red' },
+  const defaultFilters: FilterState = filters || { search: '', type: '', sort: 'newest' }
+
+  const tabs: { id: TabType; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
+    { id: 'processing', label: 'Processing', icon: Clock },
+    { id: 'active', label: 'Active', icon: CheckCircle },
+    { id: 'declined', label: 'Declined', icon: XCircle },
+    { id: 'archived', label: 'Archived', icon: Archive },
+    { id: 'projects', label: 'Projects', icon: Building2 },
   ]
 
   return (
@@ -39,7 +51,6 @@ export function DashboardTabs() {
                 <span className="hidden sm:inline">{tab.label}</span>
                 <span className="sm:hidden text-xs">{tab.label}</span>
                 
-                {/* Active indicator */}
                 {isActive && (
                   <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-orange-400 rounded-full" />
                 )}
@@ -52,9 +63,11 @@ export function DashboardTabs() {
       {/* Tab Content */}
       <div className="p-4 sm:p-6 lg:p-8">
         <div className="animate-fade-in">
-          {activeTab === 'processing' && <ProcessingTab />}
-          {activeTab === 'active' && <ActiveTab />}
-          {activeTab === 'declined' && <DeclinedTab />}
+          {activeTab === 'processing' && <ProcessingTab refreshKey={refreshKey} filters={defaultFilters} />}
+          {activeTab === 'active' && <ActiveTab refreshKey={refreshKey} filters={defaultFilters} />}
+          {activeTab === 'declined' && <DeclinedTab refreshKey={refreshKey} filters={defaultFilters} />}
+          {activeTab === 'archived' && <ArchivedTab refreshKey={refreshKey} filters={defaultFilters} />}
+          {activeTab === 'projects' && <ProjectsTab refreshKey={refreshKey} />}
         </div>
       </div>
     </div>

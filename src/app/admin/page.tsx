@@ -9,8 +9,24 @@ import { Shield } from 'lucide-react'
 export default function AdminPage() {
   const { data: session, status } = useSession()
 
+  const ADMIN_EMAIL = 'dariuswalton906@gmail.com'
+
   if (status === 'unauthenticated') {
     redirect('/')
+  }
+
+  if (status === 'authenticated' && session?.user?.email !== ADMIN_EMAIL) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-[#f8f9fc]">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Shield className="w-8 h-8 text-red-400" />
+          </div>
+          <h2 className="text-xl font-bold text-[#132452] mb-2">Access Denied</h2>
+          <p className="text-gray-500 text-sm">You don&apos;t have permission to view this page.</p>
+        </div>
+      </div>
+    )
   }
 
   if (status === 'loading') {
