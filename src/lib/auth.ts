@@ -1,6 +1,7 @@
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import type { NextAuthOptions } from 'next-auth'
+import bcrypt from 'bcryptjs'
 
 const providers: NextAuthOptions['providers'] = []
 
@@ -32,13 +33,20 @@ providers.push(
       password: { label: 'Password', type: 'password' },
     },
     async authorize(credentials) {
-      if (
-        credentials?.email === 'dariuswalton906@gmail.com' &&
-        credentials?.password === 'SouthernCities2024!'
-      ) {
+      const adminEmail = process.env.ADMIN_EMAIL?.toLowerCase()
+      const adminHash = process.env.ADMIN_PASSWORD_HASH
+      if (!adminEmail || !adminHash) return null
+
+      const email = credentials?.email?.toLowerCase().trim()
+      const password = credentials?.password
+      if (!email || !password) return null
+
+      const emailMatches = email === adminEmail
+      const passwordOk = await bcrypt.compare(password, adminHash)
+      if (emailMatches && passwordOk) {
         return {
           id: '1',
-          email: 'dariuswalton906@gmail.com',
+          email: adminEmail,
           name: 'Darius Walton',
         }
       }
@@ -87,4 +95,10 @@ export const authOptions: NextAuthOptions = {
       },
     },
   },
+}
+
+export function isAdmin(email?: string | null) {
+  const adminEmail = process.env.ADMIN_EMAIL?.toLowerCase()
+  if (!adminEmail || !email) return false
+  return email.toLowerCase() === adminEmail
 }
