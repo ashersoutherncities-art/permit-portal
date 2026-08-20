@@ -90,25 +90,28 @@ export function ProcessingTab({ refreshKey = 0, filters }: ProcessingTabProps) {
   const [error, setError] = useState('')
 
   useEffect(() => {
+    let cancelled = false
     async function fetchPermits() {
-      setLoading(true)
       setError('')
       try {
         const res = await fetch('/api/permits')
+        if (cancelled) return
         if (!res.ok) { setPermits([]); return; }
         const data: ProcessingPermit[] = await res.json()
+        if (cancelled) return
         setPermits(data.filter(p => p.status === 'processing'))
       } catch (err) {
         console.error('Error fetching processing permits:', err)
-        setPermits([])
+        if (!cancelled) setPermits([])
       } finally {
-        setLoading(false)
+        if (!cancelled) setLoading(false)
       }
     }
     fetchPermits()
+    return () => { cancelled = true }
   }, [refreshKey])
 
-  if (loading) {
+  if (loading && permits.length === 0) {
     return (
       <div className="space-y-4">
         {[1, 2, 3].map((i) => (
